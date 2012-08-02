@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">NapAndroid</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_configure">ConfigureActivity</string>
+    <string name="turn_on_airplane_enabled">定时打开飞行模式</string>
+    <string name="turn_off_airplane_enabled">定时关闭飞行模式</string>
+    <string name="turn_on_time">打开飞行模式定时</string>
+    <string name="turn_off_time">关闭飞行模式定时</string>
+
+</resources>

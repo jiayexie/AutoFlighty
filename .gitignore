@@ -1,6 +1,6 @@
-*.class
+project.properties
+.classpath
+.project
+bin/
+gen/
 
-# Package Files #
-*.jar
-*.war
-*.ear
