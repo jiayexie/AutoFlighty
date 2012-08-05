@@ -1,5 +1,6 @@
 package com.xiejiaye.napandroid;
 
+import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,18 @@ public class NapIntentReceiver extends BroadcastReceiver {
 			intent.putExtra("state", 0);
 			context.sendBroadcast(intent);
 			
+		} else if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+			Config config = new Config(context);
+			Log.d("napandroid", config.toString());
+			AlarmManager alarmManager = (AlarmManager) 
+					context.getSystemService(Context.ALARM_SERVICE);
+			Log.d("napandroid", alarmManager.toString());
+			if (config.isTurnOnAirplaneModeEnabled()) {
+				config.registerOnAlarm(context, alarmManager);
+			}
+			if (config.isTurnOffAirplaneModeEnabled()) {
+				config.registerOffAlarm(context, alarmManager);
+			}
 		}
 	}
 
