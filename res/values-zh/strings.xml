@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">NapAndroid</string>
+    <string name="menu_settings">设置</string>
+    <string name="turn_on_airplane_enabled">定时打开飞行模式</string>
+    <string name="turn_off_airplane_enabled">定时关闭飞行模式</string>
+    <string name="turn_on_time">于%s打开飞行模式</string>
+    <string name="turn_off_time">于%s关闭飞行模式</string>
+
+</resources>
