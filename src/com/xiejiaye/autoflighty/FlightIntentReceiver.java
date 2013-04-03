@@ -1,4 +1,4 @@
-package com.xiejiaye.napandroid;
+package com.xiejiaye.autoflighty;
 
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
@@ -7,10 +7,15 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.util.Log;
 
-public class NapIntentReceiver extends BroadcastReceiver {
+/**
+ * BroadcastReceiver that handles auto-on/off broadcasts, and turns on/off
+ * airplane mode.
+ * @author Xie Jiaye
+ */
+public class FlightIntentReceiver extends BroadcastReceiver {
 	
-	static final String TURN_ON_AIRPLANE = "com.xiejiaye.napandroid.TURN_ON_AIRPLANE";
-	static final String TURN_OFF_AIRPLANE = "com.xiejiaye.napandroid.TURN_OFF_AIRPLANE";
+	static final String TURN_ON_AIRPLANE = "com.xiejiaye.autoflighty.TURN_ON_AIRPLANE";
+	static final String TURN_OFF_AIRPLANE = "com.xiejiaye.autoflighty.TURN_OFF_AIRPLANE";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {

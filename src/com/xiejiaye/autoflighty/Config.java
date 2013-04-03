@@ -1,4 +1,4 @@
-package com.xiejiaye.napandroid;
+package com.xiejiaye.autoflighty;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,8 +8,14 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.format.Time;
 
+/**
+ * Data structure for holding AutoFlighty configurations.
+ * Should always be consistent with local config file as SharedPreferences.
+ * @author Xie Jiaye
+ */
 public class Config {
 	
+	// Keys to configurations in SharedPreference files.
 	private static final String KEY_ON_ENABLED = "turn_on_enabled";
 	private static final String KEY_OFF_ENABLED = "turn_off_enabled";
 	private static final String KEY_ON_HOUR = "turn_on_hour";
@@ -17,6 +23,7 @@ public class Config {
 	private static final String KEY_OFF_HOUR = "turn_off_hour";
 	private static final String KEY_OFF_MINUTE = "turn_off_minute";
 	
+	// Local config file as SharedPreferences.
 	private SharedPreferences mPrefs;
 	private Editor mEditor;
 	
@@ -31,6 +38,7 @@ public class Config {
 	boolean isTurnOffAirplaneModeEnabled() {
 		return mPrefs.getBoolean(KEY_OFF_ENABLED, false);
 	}
+	
 	Time getTurnOnTime() {
 		Time time = new Time();
 		time.set(0, mPrefs.getInt(KEY_ON_MINUTE, 0), mPrefs.getInt(KEY_ON_HOUR, 0),
@@ -43,6 +51,11 @@ public class Config {
 				0, 0, 0);
 		return time;
 	}
+	
+	/**
+	 * @return The next auto-on time calculated from config. This method does not
+	 * check validation, but assumes auto-on is enabled with valid timing.
+	 */
 	long getNextTurnOnTime() {
 		Time time = new Time();
 		time.setToNow();
@@ -51,6 +64,10 @@ public class Config {
 		long ans = time.normalize(true);
 		return ans > System.currentTimeMillis() ? ans : ans + Util.DAY;
 	}
+	/**
+	 * @return The next auto-off time calculated from config. This method does not
+	 * check validation, but assumes auto-on is enabled with valid timing.
+	 */
 	long getNextTurnOffTime() {
 		Time time = new Time();
 		time.setToNow();
@@ -66,6 +83,7 @@ public class Config {
 	void setTurnOffAirplaneModeEnabled(boolean offEnabled) {
 		mEditor.putBoolean(KEY_OFF_ENABLED, offEnabled).commit();
 	}
+	
 	void setTurnOnHourMinute(int hour, int minute) {
 		mEditor.putInt(KEY_ON_HOUR, hour).putInt(KEY_ON_MINUTE, minute).commit();
 	}
@@ -75,7 +93,7 @@ public class Config {
 	
 	void registerOnAlarm(Context context, AlarmManager alarmManager) {
 
-		Intent intent = new Intent(NapIntentReceiver.TURN_ON_AIRPLANE);
+		Intent intent = new Intent(FlightIntentReceiver.TURN_ON_AIRPLANE);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
 		alarmManager.setRepeating(AlarmManager.RTC, getNextTurnOnTime(), Util.DAY, pendingIntent);
@@ -83,7 +101,7 @@ public class Config {
 	
 	void cancelOnAlarm(Context context, AlarmManager alarmManager) {
 
-		Intent intent = new Intent(NapIntentReceiver.TURN_ON_AIRPLANE);
+		Intent intent = new Intent(FlightIntentReceiver.TURN_ON_AIRPLANE);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 		
 		alarmManager.cancel(pendingIntent);
@@ -91,7 +109,7 @@ public class Config {
 	
 	void registerOffAlarm(Context context, AlarmManager alarmManager) {
 		
-		Intent intent = new Intent(NapIntentReceiver.TURN_OFF_AIRPLANE);
+		Intent intent = new Intent(FlightIntentReceiver.TURN_OFF_AIRPLANE);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
 		alarmManager.setRepeating(AlarmManager.RTC, getNextTurnOffTime(), Util.DAY, pendingIntent);
@@ -99,7 +117,7 @@ public class Config {
 	
 	void cancelOffAlarm(Context context, AlarmManager alarmManager) {
 
-		Intent intent = new Intent(NapIntentReceiver.TURN_OFF_AIRPLANE);
+		Intent intent = new Intent(FlightIntentReceiver.TURN_OFF_AIRPLANE);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 		
 		alarmManager.cancel(pendingIntent);

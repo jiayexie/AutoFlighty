@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xiejiaye.napandroid"
+    package="com.xiejiaye.autoflighty"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -23,11 +23,11 @@
             </intent-filter>
         </activity>
         <receiver 
-            android:name="NapIntentReceiver"
+            android:name=".FlightIntentReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.xiejiaye.napandroid.TURN_ON_AIRPLANE" />
-                <action android:name="com.xiejiaye.napandroid.TURN_OFF_AIRPLANE" />
+                <action android:name="com.xiejiaye.autoflighty.TURN_ON_AIRPLANE" />
+                <action android:name="com.xiejiaye.autoflighty.TURN_OFF_AIRPLANE" />
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>

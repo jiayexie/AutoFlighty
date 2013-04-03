@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">NapAndroid</string>
+    <string name="app_name">AutoFlighty</string>
     <string name="menu_settings">设置</string>
     <string name="turn_on_airplane_enabled">定时打开飞行模式</string>
     <string name="turn_off_airplane_enabled">定时关闭飞行模式</string>
